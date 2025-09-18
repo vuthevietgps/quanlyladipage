@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex mb-3">
+  <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalCreate">Thêm mới</button>
+  <form class="row row-cols-lg-auto g-2 align-items-center" method="get">
+    <div class="col">
+      <input type="text" class="form-control" name="q" placeholder="Tìm subdomain" value="{{filters.q}}">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" name="agent" placeholder="Agent" value="{{filters.agent}}">
+    </div>
+    <div class="col">
+      <select name="status" class="form-select">
+        <option value="">Trạng thái</option>
+        <option value="active" {% if filters.status=='active' %}selected{% endif %}>Active</option>
+        <option value="paused" {% if filters.status=='paused' %}selected{% endif %}>Paused</option>
+      </select>
+    </div>
+    <div class="col">
+      <button class="btn btn-secondary">Lọc</button>
+    </div>
+  </form>
+</div>
+<table class="table table-striped table-bordered table-sm">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Subdomain</th>
+      <th>Agent</th>
+  <th>Hotline</th>
+  <th>Zalo Phone</th>
+  <th>Google Form</th>
+  <th>Tracking (Phone/Zalo/Form)</th>
+      <th>Trạng thái</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for l in landings %}
+    <tr>
+      <td>{{l.id}}</td>
+      <td>{{l.subdomain}}</td>
+      <td>{{l.agent}}</td>
+      <td>{{l.hotline_phone}}</td>
+      <td>{{l.zalo_phone}}</td>
+      <td>
+        {% if l.google_form_link %}<a href="{{l.google_form_link}}" target="_blank">Form</a>{% endif %}
+      </td>
+      <td>
+        <small class="d-block">P: {{l.phone_tracking}}</small>
+        <small class="d-block">Z: {{l.zalo_tracking}}</small>
+        <small class="d-block">F: {{l.form_tracking}}</small>
+      </td>
+      <td>
+        {% if l.status=='active' %}<span class="badge bg-success">Active</span>{% else %}<span class="badge bg-warning text-dark">Paused</span>{% endif %}
+      </td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="/edit/{{l.id}}">Sửa</a>
+        <button data-id="{{l.id}}" class="btn btn-sm btn-outline-warning btn-toggle-status">{{'Tạm dừng' if l.status=='active' else 'Kích hoạt'}}</button>
+        <button data-id="{{l.id}}" class="btn btn-sm btn-outline-danger btn-delete">Xóa</button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- Modal Create -->
+<div class="modal fade" id="modalCreate" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm Landing Page</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="createForm" enctype="multipart/form-data">
+          <input type="hidden" name="__fromModal" value="1">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label">Subdomain</label>
+              <input name="subdomain" class="form-control" required pattern="[a-z0-9-]{1,40}" placeholder="ladi1">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Agent</label>
+              <select name="agent" class="form-select">
+                <option value="">-- Chọn Agent --</option>
+                {% for a in agents_list %}
+                  <option value="{{a.name}}">{{a.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">File index.html</label>
+              <input type="file" name="file" accept=".html,.htm" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Google Form Link</label>
+              <input name="google_form_link" class="form-control" placeholder="https://docs.google.com/forms/...">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Global Site Tag</label>
+              <textarea name="global_site_tag" class="form-control" rows="3" placeholder="<!-- gtag -->"></textarea>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Phone Tracking</label>
+              <input name="phone_tracking" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Form Tracking</label>
+              <input name="form_tracking" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Zalo/Messenger Tracking</label>
+              <input name="zalo_tracking" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Hotline Phone</label>
+              <input name="hotline_phone" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Zalo Phone</label>
+              <input name="zalo_phone" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button class="btn btn-primary" id="btnCreateSubmit">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+async function changeStatus(id, status){
+  const r = await fetch(`/api/landingpages/${id}/status`, {method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({status})});
+  if(r.ok) location.reload(); else alert('Lỗi đổi trạng thái');
+}
+async function deleteLanding(id){
+  if(!confirm('Xóa mục này?')) return;
+  const r = await fetch(`/api/landingpages/${id}`, {method:'DELETE'});
+  if(r.ok) location.reload(); else alert('Lỗi xóa');
+}
+for(const btn of document.querySelectorAll('.btn-toggle-status')){
+  btn.addEventListener('click', ()=>{
+    changeStatus(btn.dataset.id, btn.textContent.includes('Tạm dừng')?'paused':'active');
+  })
+}
+for(const btn of document.querySelectorAll('.btn-delete')){
+  btn.addEventListener('click', ()=> deleteLanding(btn.dataset.id));
+}
+document.getElementById('btnCreateSubmit').addEventListener('click', async ()=>{
+  const form = document.getElementById('createForm');
+  if(!form.reportValidity()) return;
+  const fd = new FormData(form);
+  const r = await fetch('/api/landingpages', {method:'POST', body: fd});
+  if(r.ok){ location.reload(); } else { const j = await r.json().catch(()=>({error:'Lỗi'})); alert(j.error||'Lỗi'); }
+});
+</script>
+{% endblock %}

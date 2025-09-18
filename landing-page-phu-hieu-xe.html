@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Phù Hiệu Xe Nhanh - Xong Trong 24h</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --secondary-color: #ffc107;
+            --danger-color: #dc3545;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), #20c997);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            font-size: 1.3rem;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .phone-btn {
+            background: var(--danger-color);
+            border: none;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .zalo-btn {
+            background: #0068ff;
+            border: none;
+        }
+        
+        .benefit-card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .pricing-card {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .trust-section {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 30px 15px;
+        }
+        
+        .process-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e9ecef;
+            padding: 20px 0;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 15px 0;
+        }
+        
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stats-counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .sticky-contact {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .cta-button { font-size: 1.1rem; padding: 12px 30px; }
+        }
+    </style>
+    
+    <!-- Global Site Tag sẽ được inject tự động vào đây -->
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">Đăng Ký Phù Hiệu Xe Nhanh<br><span class="text-warning">Xong Trong 24h</span></h1>
+                    <p class="hero-subtitle">Dịch vụ trọn gói: Tư vấn, làm hồ sơ, nộp Cục — Giấy tờ hợp lệ — Thanh toán linh hoạt</p>
+                    
+                    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                        <a href="tel:" onclick="this.href='tel:' + window.PHONE_TRACKING; trackPhoneClick()" 
+                           class="btn cta-button phone-btn text-white">
+                            <i class="fas fa-phone-alt me-2"></i>
+                            <span class="phone-number">Gọi Ngay - Tư Vấn Miễn Phí</span>
+                        </a>
+                        <a href="#" onclick="openZalo()" 
+                           class="btn cta-button zalo-btn text-white">
+                            <i class="fab fa-facebook-messenger me-2"></i>
+                            Chat Zalo Tư Vấn
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-4 mt-lg-0">
+                    <img src="images/phu-hieu-xe-tai.png" alt="Phù hiệu xe tải" class="product-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Tại Sao Chọn Chúng Tôi?</h2>
+                <p class="lead text-muted">3 Lợi Ích Vượt Trội Khi Sử Dụng Dịch Vụ</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card benefit-card text-center p-4">
+                        <div class="benefit-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4 class="fw-bold">Hoàn Thành Nhanh</h4>
+                        <p class="text-muted">Xử lý trong <strong>24-48 giờ</strong> (tùy loại). Không cần chờ đợi lâu như các nơi khác.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card benefit-card text-center p-4">
+                        <div class="benefit-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="fw-bold">Nguyên Vẹn Pháp Lý</h4>
+                        <p class="text-muted">Hồ sơ chuẩn theo quy định, <strong>đảm bảo 100% duyệt</strong>. Có kinh nghiệm 5+ năm.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card benefit-card text-center p-4">
+                        <div class="benefit-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 class="fw-bold">Hỗ Trợ Tận Nơi</h4>
+                        <p class="text-muted">Tư vấn online + tận nơi. <strong>Cam kết hoàn tiền</strong> nếu không duyệt hồ sơ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Gói Dịch Vụ & Báo Giá</h2>
+                <p class="lead text-muted">Chọn gói phù hợp với nhu cầu của bạn</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card pricing-card h-100 text-center p-4">
+                        <h3 class="text-primary fw-bold">Gói Nhanh</h3>
+                        <p class="text-muted">24-48 giờ</p>
+                        <div class="h2 text-danger">Liên hệ báo giá</div>
+                        <ul class="list-unstyled mt-3">
+                            <li><i class="fas fa-check text-success me-2"></i>Xử lý trong 24-48h</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Hỗ trợ khẩn cấp</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Giao tận nơi</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Tư vấn 24/7</li>
+                        </ul>
+                        <button class="btn btn-danger btn-lg mt-3" onclick="showContactForm()">Chọn Gói Này</button>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card pricing-card featured h-100 text-center p-4">
+                        <div class="badge bg-success position-absolute top-0 start-50 translate-middle px-3 py-2">Phổ Biến</div>
+                        <h3 class="text-success fw-bold">Gói Tiêu Chuẩn</h3>
+                        <p class="text-muted">3-5 ngày</p>
+                        <div class="h2 text-success">Giá hợp lý</div>
+                        <ul class="list-unstyled mt-3">
+                            <li><i class="fas fa-check text-success me-2"></i>Xử lý 3-5 ngày</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Giá tiết kiệm nhất</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Hỗ trợ online</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Bảo hành 1 năm</li>
+                        </ul>
+                        <button class="btn btn-success btn-lg mt-3" onclick="showContactForm()">Chọn Gói Này</button>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card pricing-card h-100 text-center p-4">
+                        <h3 class="text-warning fw-bold">Gói Doanh Nghiệp</h3>
+                        <p class="text-muted">Dịch vụ VIP</p>
+                        <div class="h2 text-warning">Bao trọn gói</div>
+                        <ul class="list-unstyled mt-3">
+                            <li><i class="fas fa-check text-success me-2"></i>Bao tất cả giấy tờ</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Đại diện nộp hồ sơ</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Tư vấn pháp lý</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Hỗ trợ dài hạn</li>
+                        </ul>
+                        <button class="btn btn-warning btn-lg mt-3" onclick="showContactForm()">Chọn Gói Này</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-5" id="contact-form-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <h3 class="text-center mb-4 fw-bold">Yêu Cầu Tư Vấn Miễn Phí</h3>
+                        <form id="contactForm" onsubmit="trackFormSubmit(event)">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Họ và Tên *</label>
+                                <input type="text" class="form-control form-control-lg" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Số Điện Thoại *</label>
+                                <input type="tel" class="form-control form-control-lg" name="phone" 
+                                       pattern="[0-9]{10,11}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Loại Phù Hiệu</label>
+                                <select class="form-select form-select-lg" name="vehicle_type">
+                                    <option value="">Chọn loại xe</option>
+                                    <option value="xe-tai">Xe Tải</option>
+                                    <option value="xe-container">Xe Container</option>
+                                    <option value="xe-khach">Xe Khách</option>
+                                    <option value="xe-cuu-thuong">Xe Cứu Thương</option>
+                                    <option value="xe-dac-chung">Xe Đặc Chủng</option>
+                                    <option value="khac">Khác</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Ghi Chú</label>
+                                <textarea class="form-control" name="note" rows="3" 
+                                          placeholder="Yêu cầu đặc biệt hoặc câu hỏi của bạn..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg w-100">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                Yêu Cầu Tư Vấn Ngay
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Statistics Section -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">Khách Hàng Tin Tưởng</h2>
+                <p class="lead text-muted">Hàng nghìn hồ sơ đã xử lý thành công</p>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="row text-center mb-5">
+                <div class="col-md-3">
+                    <div class="stats-counter">5,000+</div>
+                    <p class="text-muted">Hồ Sơ Hoàn Thành</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-counter">99.8%</div>
+                    <p class="text-muted">Tỷ Lệ Duyệt</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-counter">24h</div>
+                    <p class="text-muted">Xử Lý Nhanh Nhất</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-counter">5+</div>
+                    <p class="text-muted">Năm Kinh Nghiệm</p>
+                </div>
+            </div>
+
+            <!-- Sample Documents -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h4 class="text-center mb-4 fw-bold">Mẫu Phù Hiệu Đã Làm</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <img src="images/phu-hieu-mau-1.jpg" alt="Mẫu phù hiệu xe tải" class="img-fluid rounded shadow">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <img src="images/phu-hieu-mau-2.jpg" alt="Mẫu phù hiệu xe khách" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">Quy Trình Làm Việc</h2>
+                <p class="lead text-muted">Chỉ 3 bước đơn giản</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="process-step">
+                        <div class="process-number">1</div>
+                        <h4 class="fw-bold">Bạn Gửi Thông Tin</h4>
+                        <p class="text-muted">Điền form hoặc gọi điện. Chúng tôi tư vấn chi tiết về thủ tục và giấy tờ cần thiết.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="process-step">
+                        <div class="process-number">2</div>
+                        <h4 class="fw-bold">Chuẩn Bị Hồ Sơ</h4>
+                        <p class="text-muted">Đội ngũ chuyên nghiệp chuẩn bị hồ sơ đầy đủ, chính xác theo quy định của Cục.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="process-step">
+                        <div class="process-number">3</div>
+                        <h4 class="fw-bold">Nhận Phù Hiệu</h4>
+                        <p class="text-muted">Nộp hồ sơ và nhận phù hiệu. Giao tận nơi hoặc bạn đến nhận tại văn phòng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">Câu Hỏi Thường Gặp</h2>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="faq-item">
+                        <h5 class="fw-bold text-primary">Thời gian xử lý mất bao lâu?</h5>
+                        <p class="text-muted">Tùy theo gói dịch vụ: Gói nhanh 24-48 giờ, Gói tiêu chuẩn 3-5 ngày, Gói doanh nghiệp tối đa 7 ngày. Chúng tôi cam kết đúng thời gian đã hẹn.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h5 class="fw-bold text-primary">Cần chuẩn bị giấy tờ gì?</h5>
+                        <p class="text-muted">CMND/CCCD bản gốc, Giấy đăng ký xe (bản gốc), Hồ sơ doanh nghiệp (nếu là xe công ty). Chúng tôi sẽ tư vấn chi tiết về từng loại giấy tờ.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h5 class="fw-bold text-primary">Thanh toán như thế nào?</h5>
+                        <p class="text-muted">Linh hoạt: Trả sau khi nhận phù hiệu hoặc tạm ứng 50% (tùy gói). Chấp nhận tiền mặt, chuyển khoản, ví điện tử.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5 class="fw-bold mb-3">Dịch Vụ Phù Hiệu Xe</h5>
+                    <p class="text-light">Chuyên nghiệp - Nhanh chóng - Uy tín<br>
+                    Đăng ký phù hiệu xe tải, xe khách, xe container và các loại xe chuyên dụng.</p>
+                    
+                    <div class="mt-3">
+                        <a href="tel:" onclick="this.href='tel:' + window.PHONE_TRACKING" class="btn btn-outline-light me-2">
+                            <i class="fas fa-phone"></i> <span class="phone-number">Hotline</span>
+                        </a>
+                        <a href="#" onclick="openZalo()" class="btn btn-outline-light">
+                            <i class="fab fa-facebook-messenger"></i> Zalo
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="fw-bold mb-3">Thông Tin Liên Hệ</h5>
+                    <p class="text-light">
+                        <i class="fas fa-map-marker-alt me-2"></i>Địa chỉ: Tòa nhà XYZ, Quận ABC, TP.HCM<br>
+                        <i class="fas fa-phone me-2"></i>Hotline: <span class="phone-number">0123.456.789</span><br>
+                        <i class="fas fa-envelope me-2"></i>Email: info@phuhieuxe.vn<br>
+                        <i class="fas fa-clock me-2"></i>Giờ làm việc: 8:00 - 18:00 (T2-T7)
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Dịch Vụ Phù Hiệu Xe. Tất cả quyền được bảo lưu. | 
+                <a href="#" class="text-light">Chính sách bảo mật</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Contact Buttons -->
+    <div class="sticky-contact">
+        <div class="d-flex flex-column gap-2">
+            <a href="tel:" onclick="this.href='tel:' + window.PHONE_TRACKING; trackPhoneClick()" 
+               class="btn btn-danger rounded-circle p-3 shadow" title="Gọi ngay">
+                <i class="fas fa-phone fa-lg"></i>
+            </a>
+            <a href="#" onclick="openZalo()" 
+               class="btn rounded-circle p-3 shadow" style="background: #0068ff; color: white;" title="Chat Zalo">
+                <i class="fab fa-facebook-messenger fa-lg"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-check-circle me-2"></i>Cảm ơn bạn!
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4 class="text-success mb-3">Thông tin đã được gửi thành công!</h4>
+                    <p>Chúng tôi sẽ liên hệ với bạn trong vòng <strong>15 phút</strong> để tư vấn chi tiết.</p>
+                    <p class="text-muted">Hoặc bạn có thể gọi ngay hotline để được hỗ trợ nhanh hơn:</p>
+                    <a href="tel:" onclick="this.href='tel:' + window.PHONE_TRACKING" 
+                       class="btn btn-success btn-lg">
+                        <i class="fas fa-phone me-2"></i>
+                        <span class="phone-number">Gọi Ngay</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Hiển thị số điện thoại tracking khi trang load
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePhoneNumbers();
+            initializeAnimations();
+        });
+
+        function updatePhoneNumbers() {
+            if (window.PHONE_TRACKING) {
+                const phoneElements = document.querySelectorAll('.phone-number');
+                phoneElements.forEach(element => {
+                    element.textContent = window.PHONE_TRACKING;
+                });
+            }
+        }
+
+        function trackPhoneClick() {
+            console.log('Phone clicked:', window.PHONE_TRACKING);
+            
+            // Google Analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'click', {
+                    event_category: 'Contact',
+                    event_label: 'Phone Click',
+                    phone_number: window.PHONE_TRACKING
+                });
+            }
+            
+            // Facebook Pixel tracking
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Contact', {
+                    content_name: 'Phone Click',
+                    phone_number: window.PHONE_TRACKING
+                });
+            }
+        }
+
+        function openZalo() {
+            if (window.ZALO_TRACKING) {
+                const zaloUrl = `https://zalo.me/${window.ZALO_TRACKING}`;
+                window.open(zaloUrl, '_blank');
+                
+                console.log('Zalo opened:', window.ZALO_TRACKING);
+                
+                // Tracking
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'click', {
+                        event_category: 'Contact',
+                        event_label: 'Zalo Click',
+                        zalo_number: window.ZALO_TRACKING
+                    });
+                }
+            }
+        }
+
+        function showContactForm() {
+            document.getElementById('contact-form-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function trackFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Get form values
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const vehicleType = formData.get('vehicle_type');
+            
+            console.log('Form submitted:', { name, phone, vehicleType });
+            
+            // Tracking form submission
+            if (window.FORM_TRACKING) {
+                console.log('Form tracking ID:', window.FORM_TRACKING);
+                
+                // Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'form_submit', {
+                        event_category: 'Lead Generation',
+                        event_label: 'Contact Form',
+                        form_id: window.FORM_TRACKING,
+                        customer_phone: phone,
+                        vehicle_type: vehicleType
+                    });
+                }
+                
+                // Facebook Pixel
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead', {
+                        content_name: 'Contact Form Submit',
+                        form_id: window.FORM_TRACKING,
+                        value: 1,
+                        currency: 'VND'
+                    });
+                }
+            }
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Reset form
+                form.reset();
+                
+                // Show success modal
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            }, 1000);
+        }
+
+        function initializeAnimations() {
+            // Animate counters
+            const counters = document.querySelectorAll('.stats-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/[^\d]/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = counter.textContent.replace(/\d+/, target);
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = counter.textContent.replace(/\d+/, Math.floor(current));
+                    }
+                }, 30);
+            });
+        }
+
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Tracking codes sẽ được inject tự động vào đây trước </body> -->
+</body>
+</html>

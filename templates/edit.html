@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Sửa Landing Page #{{landing.id}}</h3>
+<form action="/api/landingpages/{{landing.id}}" method="post" enctype="multipart/form-data" class="mt-3" id="editForm">
+  <input type="hidden" name="_method" value="PUT">
+  <fieldset class="border rounded p-3 mb-3">
+    <legend class="float-none w-auto px-2 small">Thông tin chung</legend>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Subdomain</label>
+        <input value="{{landing.subdomain}}" class="form-control" disabled>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Agent</label>
+        <select name="agent" class="form-select">
+          <option value="">-- Chọn Agent --</option>
+          {% for a in agents_list %}
+            <option value="{{a.name}}" {% if landing.agent == a.name %}selected{% endif %}>{{a.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Upload file mới (tùy chọn)</label>
+        <input type="file" name="file" accept=".html,.htm" class="form-control">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Google Form Link</label>
+        <input name="google_form_link" class="form-control" value="{{landing.google_form_link}}" placeholder="https://docs.google.com/forms/...">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="border rounded p-3 mb-3">
+    <legend class="float-none w-auto px-2 small">Tracking & Script</legend>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Global Site Tag</label>
+        <textarea name="global_site_tag" class="form-control" rows="4">{{landing.global_site_tag}}</textarea>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Phone Tracking</label>
+        <input name="phone_tracking" class="form-control" value="{{landing.phone_tracking}}">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Form Tracking</label>
+        <input name="form_tracking" class="form-control" value="{{landing.form_tracking}}">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Zalo/Messenger Tracking</label>
+        <input name="zalo_tracking" class="form-control" value="{{landing.zalo_tracking}}">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Hotline Phone</label>
+        <input name="hotline_phone" class="form-control" value="{{landing.hotline_phone}}">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Zalo Phone</label>
+        <input name="zalo_phone" class="form-control" value="{{landing.zalo_phone}}">
+      </div>
+    </div>
+  </fieldset>
+  <div class="mt-3">
+    <button class="btn btn-primary">Cập nhật</button>
+    <a href="/" class="btn btn-secondary">Hủy</a>
+  </div>
+</form>
+<script>
+  const form = document.getElementById('editForm');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const fd = new FormData(form);
+    const r = await fetch('/api/landingpages/{{landing.id}}', {method:'PUT', body: fd});
+    if(r.ok){
+      window.location.href = '/';
+    } else {
+      const j = await r.json().catch(()=>({error:'Lỗi'}));
+      alert(j.error||'Lỗi');
+    }
+  })
+</script>
+{% endblock %}

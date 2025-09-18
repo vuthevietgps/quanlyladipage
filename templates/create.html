@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Thêm Landing Page</h3>
+<form action="/api/landingpages" method="post" enctype="multipart/form-data" class="mt-3" id="createForm">
+  <fieldset class="border rounded p-3 mb-3">
+    <legend class="float-none w-auto px-2 small">Thông tin chung</legend>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Subdomain (vd: ladi1)</label>
+        <input name="subdomain" class="form-control" required pattern="[a-z0-9-]{1,40}" placeholder="ladi1">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Agent</label>
+        <select name="agent" class="form-select">
+          <option value="">-- Chọn Agent --</option>
+          {% for a in agents_list %}
+            <option value="{{a.name}}">{{a.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">File index.html</label>
+        <input type="file" name="file" accept=".html,.htm" class="form-control" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Google Form Link</label>
+        <input name="google_form_link" class="form-control" placeholder="https://docs.google.com/forms/...">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="border rounded p-3 mb-3">
+    <legend class="float-none w-auto px-2 small">Tracking & Script</legend>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Global Site Tag</label>
+        <textarea name="global_site_tag" class="form-control" rows="4" placeholder="<!-- gtag script -->"></textarea>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Phone Tracking</label>
+        <input name="phone_tracking" class="form-control" placeholder="Mã phone tracking">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Form Tracking</label>
+        <input name="form_tracking" class="form-control" placeholder="Mã form tracking">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Zalo/Messenger Tracking</label>
+        <input name="zalo_tracking" class="form-control" placeholder="Mã zalo/messenger">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Hotline Phone</label>
+        <input name="hotline_phone" class="form-control" placeholder="Số hotline hiển thị">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Zalo Phone</label>
+        <input name="zalo_phone" class="form-control" placeholder="Số Zalo">
+      </div>
+    </div>
+  </fieldset>
+  <div class="mt-3">
+    <button class="btn btn-primary">Lưu</button>
+    <a href="/" class="btn btn-secondary">Hủy</a>
+  </div>
+</form>
+<script>
+  const form = document.getElementById('createForm');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const fd = new FormData(form);
+    const r = await fetch('/api/landingpages', {method:'POST', body: fd});
+    if(r.ok){
+      window.location.href = '/';
+    } else {
+      const j = await r.json().catch(()=>({error:'Lỗi'}));
+      alert(j.error||'Lỗi');
+    }
+  })
+</script>
+{% endblock %}
