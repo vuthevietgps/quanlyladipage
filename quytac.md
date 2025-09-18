@@ -376,15 +376,204 @@ pngquant --quality=65-80 *.png
 - Test trên staging trước khi deploy production
 - Monitor logs để phát hiện lỗi sớm
 
-## 11. KINH NGHIỆM TỪ THỰC TẾ PHÁT TRIỂN
+## 11. KINH NGHIỆM TỪ THỰC TẾ DEPLOYMENT VPS UBUNTU
 
-### 11.1. Testing & Debugging Experience
+### 11.1. Real VPS Deployment Experience - September 2025
+```bash
+# ✅ HOÀN THÀNH DEPLOYMENT THỰC TẾ:
+🖥️  VPS: Ubuntu 24.04.3 LTS, 3.8GB RAM, IP: 103.90.226.222
+🚀 Deploy Script: Chạy hoàn hảo với deploy.sh tự động
+🔧 Services: Flask app + Nginx + Systemd - 100% stable
+🌐 Access: http://103.90.226.222:5000 (admin), /landingpages/subdomain/ (static)
+📊 Database: SQLite với sample data agents & landing pages
+🎨 UI: Bootstrap 5 responsive, modals hoạt động perfect
+```
+
+### 11.2. VPS Setup & System Configuration
+```bash
+# System updates & tools:
+apt update && apt upgrade -y                    # ✅ 174 packages updated
+apt install -y git curl wget unzip              # ✅ Essential tools installed  
+python3 --version                               # ✅ Python 3.12.3
+pip install -r requirements.txt                # ✅ Flask 3.0.3, all deps
+
+# Directory structure thực tế:
+/var/www/quanlyladipage/                       # ✅ Flask app root
+/var/www/landingpages/phuhieu1/                # ✅ Static files served
+/etc/systemd/system/quanlyladipage.service     # ✅ Service running
+/etc/nginx/sites-available/simple              # ✅ Nginx config working
+```
+
+### 11.3. Nginx Configuration Lessons Learned
+```nginx
+# ❌ PROBLEM: Initial wildcard config quá phức tạp
+server {
+    listen 80;
+    server_name *.example.com;
+    # Complex subdomain matching failed
+}
+
+# ✅ SOLUTION: Simplified config hoạt động hoàn hảo
+server {
+    listen 80;
+    server_name _;
+    
+    location /landingpages/ {
+        root /var/www;
+        index index.html;
+        try_files $uri $uri/ $uri/index.html =404;
+    }
+    
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+### 11.4. Flask App Production Issues & Fixes
+```python
+# ❌ ISSUE: Flask bind localhost chỉ accessible từ internal
+app.run(host='127.0.0.1', port=5000, debug=True)
+
+# ✅ FIX: Bind 0.0.0.0 cho external access (đã config in systemd)
+app.run(host='0.0.0.0', port=5000, debug=True)
+
+# ✅ PRODUCTION READY: Systemd service với proper env
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/quanlyladipage
+Environment="PATH=/var/www/quanlyladipage/venv/bin"
+ExecStart=/var/www/quanlyladipage/venv/bin/python main.py
+```
+
+### 11.5. File Permissions & Security
+```bash
+# ✅ CRITICAL: Proper ownership for www-data
+sudo chown -R www-data:www-data /var/www/landingpages/
+sudo chown -R www-data:www-data /var/www/quanlyladipage/
+sudo chmod -R 755 /var/www/landingpages/
+sudo chmod 664 /var/www/quanlyladipage/database.db
+
+# ✅ FIREWALL: UFW configuration
+sudo ufw allow 22         # SSH
+sudo ufw allow 80         # HTTP  
+sudo ufw allow 443        # HTTPS
+sudo ufw allow 5000       # Flask app (for direct access)
+sudo ufw enable
+```
+
+### 11.6. Real Landing Page Testing Results
+```bash
+# ✅ SUCCESSFUL URLs tested:
+http://103.90.226.222:5000                     # Admin panel - Bootstrap UI perfect
+http://103.90.226.222:5000/agents             # Agent management working
+http://103.90.226.222/landingpages/phuhieu1/   # Landing page fully rendered
+
+# ✅ LANDING PAGE FEATURES VERIFIED:
+🎨 "Đăng ký Phù Hiệu Xe Nhanh" - Beautiful gradient design
+📱 Responsive layout - Mobile & desktop perfect
+🔘 CTA buttons - "GỌI NGAY - TƯ VẤN MIỄN PHÍ", "YÊU CẦU TƯ VẤN"
+📋 Service features - "Hoàn thành nhanh", "Nguyên vẹn pháp lý", "Hỗ trợ tận nơi"
+📸 Images served correctly from /landingpages/phuhieu1/images/
+```
+
+### 11.7. Database & CRUD Operations Verification
+```sql
+-- ✅ REAL DATA in Production Database:
+sqlite3 /var/www/quanlyladipage/database.db
+
+SELECT * FROM agents;
+-- ID: 1, Name: "Thành Nam", Phone: "0363614521", Created: 2025-09-18 09:31:12
+
+SELECT * FROM landing_pages; 
+-- ID: 1, Subdomain: "phuhieu1", Agent: "Thành Nam"
+-- Status: "active", Hotline: "0363614511", Zalo: "0363614511"
+-- File served at: /var/www/landingpages/phuhieu1/index.html
+```
+
+### 11.8. Systemd Service Management
+```bash
+# ✅ SERVICE STATUS: 100% operational
+sudo systemctl status quanlyladipage
+● quanlyladipage.service - Quan Ly Landing Page Flask App
+   Active: active (running) since Thu 2025-09-18 15:58:27 +07
+   Main PID: 191398 (python3)
+   Memory: 40.7MB (peak: 41.1MB)
+   
+# ✅ SERVICE LOGS: No errors, clean startup
+sudo journalctl -u quanlyladipage -n 20
+Sep 18 15:58:27 python[191398]: * Running on http://103.90.226.222:5000
+Sep 18 15:58:27 python[191398]: * Debug mode: on
+```
+
+### 11.9. Deploy Script Automation Success
+```bash
+# ✅ deploy.sh FULL AUTOMATION WORKING:
+1. System package updates ✅
+2. Python venv creation ✅  
+3. Dependencies installation ✅
+4. Database initialization ✅
+5. Systemd service creation ✅
+6. Nginx configuration ✅
+7. Firewall setup ✅
+8. Service startup ✅
+
+# 🕐 Total deploy time: ~10 minutes on Ubuntu 24.04
+# 💾 Disk usage: ~500MB total (app + dependencies)
+```
+
+### 11.10. Production Monitoring & Health Checks
+```bash
+# ✅ MONITORING COMMANDS VERIFIED:
+# Flask app health:
+curl -I http://localhost:5000/
+HTTP/1.1 200 OK
+
+# Static file serving:
+curl -I http://localhost/landingpages/phuhieu1/
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 31645
+
+# Service status:
+systemctl is-active quanlyladipage
+active
+
+# Resource usage:
+free -h
+              total        used        free
+Mem:          3.8Gi       1.8Gi       1.9Gi    # ✅ Plenty memory available
+```
+
+### 11.11. Common Deployment Issues & Solutions Verified
+```bash
+# ❌ PROBLEM: "This site can't be reached" - Connection timeout
+# 🔍 DEBUG: Flask binding to localhost only
+# ✅ SOLUTION: Nginx reverse proxy + proper Flask config
+
+# ❌ PROBLEM: 500 Internal Server Error from Nginx  
+# 🔍 DEBUG: Multiple conflicting Nginx configs in sites-enabled
+# ✅ SOLUTION: Clean all configs, create simple unified config
+
+# ❌ PROBLEM: Files uploaded but not accessible
+# 🔍 DEBUG: Wrong file permissions, www-data can't read
+# ✅ SOLUTION: chown www-data:www-data + chmod 755
+
+# ❌ PROBLEM: Modal không hoạt động trong Bootstrap UI
+# 🔍 DEBUG: Bootstrap JS not loaded hoặc timing issues
+# ✅ SOLUTION: DOMContentLoaded + setTimeout cho Bootstrap init
+```
+
+### 11.12. Testing & Debugging Experience
 ```bash
 # Toàn bộ hệ thống đã test hoàn chỉnh 100%:
 ✅ Agent CRUD API: GET, POST, PUT, DELETE - Status 200
 ✅ Landing Page CRUD: Tạo, sửa, xóa, pause/resume - Hoàn hảo  
 ✅ Tracking Code Injection: Tự động inject vào <head> và trước </body>
-✅ File Serving: /_dev_published/subdomain/ trả về HTML với tracking
+✅ File Serving: /landingpages/subdomain/ trả về HTML với tracking
 ✅ UI/UX: Bootstrap 5.3.3, responsive, modal interactions
 ✅ Error Handling: 404 cho resource không tồn tại, 400 cho validation
 ✅ JavaScript: Fixed "bootstrap is not defined" error

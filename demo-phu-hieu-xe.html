@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phù Hiệu Xe Cao Cấp - Chất Lượng Nhật Bản</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a1a1a;
+            --accent-color: #ff6b35;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('./anh1.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero-content .lead {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn-gold {
+            background: linear-gradient(45deg, var(--primary-color), #f4d03f);
+            border: none;
+            color: var(--secondary-color);
+            font-weight: bold;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+            color: var(--secondary-color);
+        }
+        
+        .features-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .products-section {
+            padding: 80px 0;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .product-1 { background-image: url('./anh2.jpg'); }
+        .product-2 { background-image: url('./anh3.jpg'); }
+        .product-3 { background-image: url('./anh4.jpg'); }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.1rem;
+            margin-right: 10px;
+        }
+        
+        .guarantee-section {
+            background: linear-gradient(135deg, var(--primary-color), #f4d03f);
+            color: var(--secondary-color);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .testimonial-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-image: url('./anh5.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 20px;
+        }
+        
+        .contact-section {
+            background: var(--secondary-color);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .contact-info {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .floating-buttons {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 1000;
+        }
+        
+        .floating-btn {
+            display: block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .btn-phone {
+            background: #25d366;
+        }
+        
+        .btn-zalo {
+            background: #0068ff;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .stats-section {
+            background: url('./anh6.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            padding: 80px 0;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+        }
+        
+        .stats-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+        }
+        
+        .footer-section {
+            background: #000;
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="pulse">PHÙ HIỆU XE CAO CẤP</h1>
+                <p class="lead">🔥 Chất lượng Nhật Bản - Bảo hành trọn đời - Miễn phí lắp đặt 🔥</p>
+                <p class="mb-4">⚡ KHUYẾN MÃI SỐC: Giảm 50% + Tặng kèm bộ phụ kiện 2 triệu</p>
+                <a href="#products" class="btn btn-gold btn-lg">
+                    <i class="fas fa-shopping-cart"></i> Đặt Hàng Ngay
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-3">Tại Sao Chọn Chúng Tôi?</h2>
+                <p class="lead">Hơn 10 năm kinh nghiệm trong lĩnh vực phù hiệu xe cao cấp</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h4>Chất Lượng Nhật Bản</h4>
+                        <p>Nguyên liệu nhập khẩu 100% từ Nhật Bản, độ bền cao, chống oxy hóa tuyệt đối</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h4>Lắp Đặt Chuyên Nghiệp</h4>
+                        <p>Đội ngũ thợ lành nghề, lắp đặt tận nhà, bảo hành trọn đời sản phẩm</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h4>Giao Hàng Nhanh</h4>
+                        <p>Giao hàng trong ngày tại Hà Nội - TPHCM, toàn quốc trong 2-3 ngày</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-3">Sản Phẩm Bán Chạy</h2>
+                <p class="lead">Những mẫu phù hiệu xe được ưa chuộng nhất hiện nay</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card">
+                        <div class="product-image product-1">
+                            <div class="product-badge">HOT</div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">Phù Hiệu Mercedes-Benz</h4>
+                            <div class="product-price">
+                                <span class="old-price">2.500.000đ</span>
+                                <span>1.250.000đ</span>
+                            </div>
+                            <p>Phù hiệu Mercedes cao cấp, mạ chrome, độ bền 10+ năm</p>
+                            <button class="btn btn-gold w-100" onclick="orderProduct('Mercedes-Benz')">
+                                <i class="fas fa-phone"></i> Đặt Hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card">
+                        <div class="product-image product-2">
+                            <div class="product-badge">SALE</div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">Phù Hiệu BMW</h4>
+                            <div class="product-price">
+                                <span class="old-price">2.200.000đ</span>
+                                <span>1.100.000đ</span>
+                            </div>
+                            <p>Logo BMW chính hãng, thay thế hoàn hảo logo gốc</p>
+                            <button class="btn btn-gold w-100" onclick="orderProduct('BMW')">
+                                <i class="fas fa-phone"></i> Đặt Hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card">
+                        <div class="product-image product-3">
+                            <div class="product-badge">NEW</div>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-title">Phù Hiệu Audi</h4>
+                            <div class="product-price">
+                                <span class="old-price">2.800.000đ</span>
+                                <span>1.400.000đ</span>
+                            </div>
+                            <p>4 vòng tròn Audi classic, chất liệu hợp kim cao cấp</p>
+                            <button class="btn btn-gold w-100" onclick="orderProduct('Audi')">
+                                <i class="fas fa-phone"></i> Đặt Hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-content">
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <span class="stat-number">15000+</span>
+                        <p>Khách Hàng Hài Lòng</p>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <span class="stat-number">10+</span>
+                        <p>Năm Kinh Nghiệm</p>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <span class="stat-number">50+</span>
+                        <p>Mẫu Phù Hiệu</p>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <span class="stat-number">99%</span>
+                        <p>Đánh Giá Tích Cực</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="guarantee-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="mb-3">🛡️ CAM KẾT CHẤT LƯỢNG</h2>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">✅ Bảo hành trọn đời sản phẩm</li>
+                        <li class="mb-2">✅ Đổi trả trong 30 ngày nếu không hài lòng</li>
+                        <li class="mb-2">✅ Lắp đặt miễn phí tận nhà</li>
+                        <li class="mb-2">✅ Hỗ trợ 24/7 sau bán hàng</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-certificate" style="font-size: 5rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-3">Khách Hàng Nói Gì?</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar"></div>
+                        <h5>Anh Tuấn - Hà Nội</h5>
+                        <p class="mb-3">"Phù hiệu BMW rất đẹp và chất lượng, lắp vào xe trông sang trọng hơn hẳn. Dịch vụ tận tâm!"</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar"></div>
+                        <h5>Chị Mai - TPHCM</h5>
+                        <p class="mb-3">"Mình đã thay 3 cái phù hiệu Mercedes cho xe, chất lượng tuyệt vời, giá cả hợp lý"</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar"></div>
+                        <h5>Anh Hùng - Đà Nẵng</h5>
+                        <p class="mb-3">"Shop tư vấn nhiệt tình, sản phẩm đúng như mô tả. Sẽ giới thiệu cho bạn bè"</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="mb-3">Liên Hệ Đặt Hàng</h2>
+                <p class="lead">Hotline hỗ trợ 24/7 - Tư vấn miễn phí</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Hotline</h4>
+                        <p class="mb-0">0123.456.789</p>
+                        <small>Hỗ trợ 24/7</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fab fa-facebook-messenger"></i>
+                        </div>
+                        <h4>Zalo</h4>
+                        <p class="mb-0">0123.456.789</p>
+                        <small>Chat trực tuyến</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Showroom</h4>
+                        <p class="mb-0">123 Đường ABC, Quận 1</p>
+                        <small>TPHCM</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer-section">
+        <div class="container">
+            <p>&copy; 2025 Phù Hiệu Xe Cao Cấp. Mọi quyền được bảo lưu.</p>
+        </div>
+    </section>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <a href="tel:0123456789" class="floating-btn btn-phone" title="Gọi ngay">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="#" onclick="openZalo()" class="floating-btn btn-zalo" title="Chat Zalo">
+            <i class="fab fa-facebook-messenger"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Order product function
+        function orderProduct(product) {
+            // Track phone click
+            if (window.PHONE_TRACKING) {
+                // Add phone tracking code here
+            }
+            
+            // Open phone call
+            window.open('tel:0123456789', '_self');
+        }
+
+        // Open Zalo function
+        function openZalo() {
+            // Track Zalo click
+            if (window.ZALO_TRACKING) {
+                // Add Zalo tracking code here  
+            }
+            
+            // Open Zalo
+            window.open('https://zalo.me/0123456789', '_blank');
+        }
+
+        // Form submit tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            // Any forms on the page
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function() {
+                    if (window.FORM_TRACKING) {
+                        // Add form tracking code here
+                    }
+                });
+            });
+        });
+
+        // Animate stats on scroll
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalValue = parseInt(target.textContent);
+                        animateValue(target, 0, finalValue, 2000);
+                        observer.unobserve(target);
+                    }
+                });
+            });
+
+            stats.forEach(stat => observer.observe(stat));
+        }
+
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value + (element.textContent.includes('+') ? '+' : '') + 
+                                    (element.textContent.includes('%') ? '%' : '');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            animateStats();
+        });
+    </script>
+</body>
+</html>

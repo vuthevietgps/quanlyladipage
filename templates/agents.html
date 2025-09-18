@@ -46,7 +46,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Số điện thoại</label>
-            <input name="phone" id="phone" class="form-control" pattern="[0-9\\s+()-]{4,20}">
+            <input name="phone" id="phone" class="form-control">
           </div>
         </form>
       </div>
@@ -58,19 +58,11 @@
   </div>
 </div>
 <script>
-console.log('Agents script loading...');
-
 // Wait for DOM and Bootstrap to be ready
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM ready, Bootstrap check:', typeof bootstrap);
-    
     // Small delay to ensure Bootstrap is fully initialized
-    setTimeout(function() {
-        console.log('Initializing agent management...');
-        console.log('Bootstrap available:', typeof bootstrap !== 'undefined');
-        
+    setTimeout(function() {        
         if (typeof bootstrap === 'undefined') {
-            console.error('Bootstrap is not loaded!');
             alert('Trang web chưa tải hoàn tất. Vui lòng refresh trang.');
             return;
         }
@@ -123,8 +115,6 @@ function initializeAgentManagement() {
             if(r.ok) location.reload(); else alert('Lỗi xóa');
           })
         }
-        
-        console.log('Agent management initialized successfully');
         
     } catch (error) {
         console.error('Error initializing agent management:', error);

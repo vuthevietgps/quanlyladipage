@@ -27,10 +27,11 @@
       <th>ID</th>
       <th>Subdomain</th>
       <th>Agent</th>
-  <th>Hotline</th>
-  <th>Zalo Phone</th>
-  <th>Google Form</th>
-  <th>Tracking (Phone/Zalo/Form)</th>
+      <th>Hotline</th>
+      <th>Zalo Phone</th>
+      <th>Google Form</th>
+      <th>Tracking (Phone/Zalo/Form)</th>
+      <th>Link</th>
       <th>Trạng thái</th>
       <th>Hành động</th>
     </tr>
@@ -52,10 +53,15 @@
         <small class="d-block">F: {{l.form_tracking}}</small>
       </td>
       <td>
+        <a href="/landing/{{l.subdomain}}" target="_blank" class="btn btn-sm btn-outline-success">
+          <i class="fas fa-external-link-alt"></i> Xem
+        </a>
+      </td>
+      <td>
         {% if l.status=='active' %}<span class="badge bg-success">Active</span>{% else %}<span class="badge bg-warning text-dark">Paused</span>{% endif %}
       </td>
       <td>
-        <a class="btn btn-sm btn-outline-primary" href="/edit/{{l.id}}">Sửa</a>
+        <a class="btn btn-sm btn-outline-primary" href="/admin-panel-xyz123/edit/{{l.id}}">Sửa</a>
         <button data-id="{{l.id}}" class="btn btn-sm btn-outline-warning btn-toggle-status">{{'Tạm dừng' if l.status=='active' else 'Kích hoạt'}}</button>
         <button data-id="{{l.id}}" class="btn btn-sm btn-outline-danger btn-delete">Xóa</button>
       </td>
@@ -93,12 +99,28 @@
               <input type="file" name="file" accept=".html,.htm" class="form-control" required>
             </div>
             <div class="col-md-3">
+              <label class="form-label">Ảnh Landing Page (Tối đa 7 ảnh)</label>
+              <input type="file" name="images" accept="image/*" class="form-control" multiple>
+              <small class="text-muted">Chọn tối đa 7 ảnh. Sẽ được đổi tên thành anh1.jpg, anh2.jpg, ...</small>
+            </div>
+            <div class="col-md-3">
               <label class="form-label">Google Form Link</label>
               <input name="google_form_link" class="form-control" placeholder="https://docs.google.com/forms/...">
             </div>
             <div class="col-12">
               <label class="form-label">Global Site Tag</label>
               <textarea name="global_site_tag" class="form-control" rows="3" placeholder="<!-- gtag -->"></textarea>
+            </div>
+            <div class="col-12">
+              <div class="alert alert-info">
+                <h6><i class="fas fa-info-circle"></i> Hướng dẫn sử dụng ảnh trong HTML:</h6>
+                <ul class="mb-0">
+                  <li>Ảnh sẽ được đặt tên: <code>anh1.jpg</code>, <code>anh2.png</code>, <code>anh3.gif</code>, ... (tối đa 7 ảnh)</li>
+                  <li>Trong HTML sử dụng: <code>&lt;img src="./anh1.jpg"&gt;</code></li>
+                  <li>Background: <code>background-image: url('./anh2.jpg')</code></li>
+                  <li>Thứ tự upload = thứ tự đặt tên</li>
+                </ul>
+              </div>
             </div>
             <div class="col-md-3">
               <label class="form-label">Phone Tracking</label>
