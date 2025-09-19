@@ -1,6 +1,12 @@
-# Quy tắc tạo file index.html cho Landing Page (Tracking-ready)
+# QUY TẮC TẠO LANDING PAGE VỚI TRACKING TỰ ĐỘNG
 
-Mục tiêu: Khi upload index.html, hệ thống sẽ tự động chèn (inject) các mã tracking (Google Ads/Analytics, Facebook Pixel, Phone/Zalo/Form tracking) mà KHÔNG cần sửa tay trong HTML.
+## TỔNG QUAN
+
+Hệ thống tự động inject tracking codes vào HTML landing page thông qua:
+- **Placeholder Comments**: `<!-- TRACKING_HEAD -->` và `<!-- TRACKING_BODY -->`
+- **Fallback Injection**: Tự động chèn trước `</head>` và `</body>` nếu không có placeholder
+- **Idempotent**: Có thể chạn nhiều lần mà không duplicate codes
+- **Dynamic Variables**: `window.PHONE_TRACKING`, `window.ZALO_TRACKING`, `window.FORM_TRACKING`
 
 ## 1) Sử dụng placeholder (khuyến nghị)
 Chèn các placeholder sau vào HTML để kiểm soát chính xác vị trí mã tracking được chèn:

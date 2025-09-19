@@ -1,5 +1,14 @@
 # QUY TẮC DEPLOY VÀ PHÁT TRIỂN LANDING PAGE
 
+## TỔNG QUAN HỆ THỐNG
+
+Hệ thống quản lý Landing Page đa subdomain với Flask + Nginx + SQLite:
+- **Admin Panel**: `http://admin.yourdomain.com` - Quản lý landing pages và agents
+- **Wildcard Subdomains**: `http://anything.yourdomain.com` - Serve landing pages theo subdomain
+- **Tracking System**: Tự động inject tracking codes (Google Analytics, Phone, Zalo, Form)
+- **Image Management**: Upload và serve ảnh theo subdomain
+- **Agent Management**: CRUD agents với phone tracking
+
 ## 1. CẤU TRÚC VPS UBUNTU
 
 ### Thư Mục Hệ Thống
