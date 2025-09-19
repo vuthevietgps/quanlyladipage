@@ -201,3 +201,50 @@ Bạn đã có hệ thống quản lý landing page hoàn chỉnh:
 - ✅ **SSL Certificate**: HTTPS secure
 
 **Chúc mừng bạn đã deploy thành công!** 🚀
+
+## 🔄 (Mới) Làm sạch sâu và triển khai lại từ GitHub
+
+Nếu VPS của bạn đã có ứng dụng cũ, hãy dùng các bước sau để dọn dẹp sâu và triển khai lại từ repo GitHub mới `quanlyladipage1`:
+
+### 1) Làm sạch sâu VPS
+
+Chạy script dọn sâu (sẽ hỏi có giữ dữ liệu landingpages/uploads hay không, và có backup rồi xoá SSL hay không):
+
+```bash
+wget -O /root/cleanup-vps.sh https://raw.githubusercontent.com/vuthevietgps/quanlyladipage/main/cleanup-vps.sh
+sudo bash /root/cleanup-vps.sh
+```
+
+### 2) Triển khai lại từ GitHub mới
+
+Script triển khai 1 bước: cài gói cần thiết, clone repo `quanlyladipage1`, tạo venv, cài requirements, khởi tạo DB, tạo service systemd, cấu hình Nginx admin + wildcard, mở firewall và khởi động.
+
+Chạy tương tác (sẽ hỏi DOMAIN và có giữ landingpages hay không):
+
+```bash
+wget -O /root/redeploy-vps.sh https://raw.githubusercontent.com/vuthevietgps/quanlyladipage/main/redeploy-vps.sh
+sudo bash /root/redeploy-vps.sh
+```
+
+Hoặc chạy không cần hỏi (ví dụ):
+
+```bash
+DOMAIN=example.com \
+BRANCH=main \
+REPO_URL=https://github.com/vuthevietgps/quanlyladipage1.git \
+PRESERVE_LANDINGPAGES=true \
+sudo -E bash /root/redeploy-vps.sh
+```
+
+Sau khi hoàn tất:
+
+- Trỏ DNS: `@`, `*`, `admin` → IP VPS
+- Mở admin: `http://admin.example.com`
+- Cài SSL (khuyến nghị):
+
+```bash
+sudo apt install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d admin.example.com -d "*.example.com"
+```
+
+Ghi chú: `redeploy-vps.sh` cho phép ghi đè bằng biến môi trường: `APP_NAME`, `APP_DIR`, `PUBLISHED_DIR`, `UPLOADS_DIR`, `SERVICE_NAME`, `PY_BIN`… để tùy biến đường dẫn và tên dịch vụ.

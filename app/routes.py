@@ -3,12 +3,11 @@ import os
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app, send_from_directory
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
-import mimetypes
 from .utils import sanitize_subdomain, inject_tracking
 from . import repository
 from . import agents_repository as agents
 from .auth import User
-from .forms import LoginForm, ChangePasswordForm
+from .forms import LoginForm
 
 bp = Blueprint('main', __name__)
 
@@ -84,7 +83,7 @@ def company_home():
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect('/admin-panel-xyz123/')
+        return redirect(url_for('main.admin_dashboard'))
     
     form = LoginForm()
     if form.validate_on_submit():
@@ -93,7 +92,7 @@ def login():
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')
             if not next_page or not next_page.startswith('/'):
-                next_page = '/admin-panel-xyz123/'
+                next_page = url_for('main.admin_dashboard')
             flash('Đăng nhập thành công!', 'success')
             return redirect(next_page)
         else:
@@ -134,7 +133,7 @@ def landing_detail(landing_id):
     landing = repository.get_landing(landing_id)
     if not landing:
         flash('Không tìm thấy landing page','danger')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.admin_dashboard'))
     return render_template('detail.html', landing=landing)
 
 @bp.route('/api/landingpages', methods=['GET'])
@@ -175,7 +174,11 @@ def api_create():
     images = request.files.getlist('images')
     
     head_snippet = TRACKING_TEMPLATE_HEAD.format(global_site_tag=global_site_tag)
-    body_snippet = TRACKING_TEMPLATE_BODY.format(phone_tracking=phone_tracking, zalo_tracking=zalo_tracking, form_tracking=form_tracking)
+    body_snippet = TRACKING_TEMPLATE_BODY.format(
+        phone_tracking=phone_tracking,
+        zalo_tracking=zalo_tracking,
+        form_tracking=form_tracking,
+    )
     final_html = inject_tracking(html_content, head_snippet, body_snippet)
 
     pub_root = current_app.config['PUBLISHED_ROOT']
@@ -259,7 +262,11 @@ def api_update(landing_id):
             return jsonify({'error': str(e)}), 500
 
     head_snippet = TRACKING_TEMPLATE_HEAD.format(global_site_tag=global_site_tag)
-    body_snippet = TRACKING_TEMPLATE_BODY.format(phone_tracking=phone_tracking, zalo_tracking=zalo_tracking, form_tracking=form_tracking)
+    body_snippet = TRACKING_TEMPLATE_BODY.format(
+        phone_tracking=phone_tracking,
+        zalo_tracking=zalo_tracking,
+        form_tracking=form_tracking,
+    )
     final_html = inject_tracking(html_content, head_snippet, body_snippet)
 
     os.makedirs(target_dir, exist_ok=True)
@@ -336,7 +343,7 @@ def edit_page(landing_id):
     landing = repository.get_landing(landing_id)
     if not landing:
         flash('Không tìm thấy','danger')
-        return redirect('/admin-panel-xyz123/')
+        return redirect(url_for('main.admin_dashboard'))
     return render_template('edit.html', landing=landing, agents_list=agents.list_agents())
 
 # Serve published (dev helper only – in production Nginx will serve)

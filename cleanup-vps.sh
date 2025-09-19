@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script làm sạch VPS trước khi deploy mới
+# Script làm sạch sâu VPS trước khi deploy mới
 # Chạy với quyền root: sudo bash cleanup-vps.sh
 
-set -e
+set -Eeuo pipefail
 
 # Colors for output
 RED='\033[0;31m'
@@ -89,7 +89,7 @@ systemctl daemon-reload
 supervisorctl reread 2>/dev/null || true
 supervisorctl update 2>/dev/null || true
 
-print_header "2. XÓA CÁC THƒ MỤC ỨNG DỤNG CŨ"
+print_header "2. XÓA CÁC THƯ MỤC ỨNG DỤNG CŨ"
 
 print_status "Xóa thư mục ứng dụng cũ..."
 
@@ -117,9 +117,26 @@ for dir in "${APP_DIRS[@]}"; do
 done
 
 # Xóa thư mục published/uploaded files
-print_status "Xóa files uploaded cũ..."
-rm -rf /var/www/landingpages
-rm -rf /var/www/uploads
+print_status "Xử lý thư mục dữ liệu (landingpages, uploads)..."
+read -p "Giữ nguyên thư mục landing pages (/var/www/landingpages)? (Y/n): " -n 1 -r keep_lp
+echo
+if [[ ! $keep_lp =~ ^[Nn]$ ]]; then
+    print_warning "Giữ nguyên /var/www/landingpages"
+else
+    print_status "Xóa /var/www/landingpages"
+    rm -rf /var/www/landingpages
+fi
+
+read -p "Giữ nguyên thư mục uploads (/var/www/uploads)? (Y/n): " -n 1 -r keep_up
+echo
+if [[ ! $keep_up =~ ^[Nn]$ ]]; then
+    print_warning "Giữ nguyên /var/www/uploads"
+else
+    print_status "Xóa /var/www/uploads"
+    rm -rf /var/www/uploads
+fi
+
+print_status "Xóa các thư mục dư thừa nếu có..."
 rm -rf /var/www/published
 rm -rf /var/www/static
 
@@ -139,6 +156,9 @@ rm -f /etc/nginx/sites-available/quanlyladipage*
 rm -f /etc/nginx/sites-available/landingpage*
 rm -f /etc/nginx/sites-available/flask-app*
 rm -f /etc/nginx/sites-available/webapp*
+
+# Xóa các cấu hình conf.d tuỳ biến (nếu có)
+rm -f /etc/nginx/conf.d/*.conf 2>/dev/null || true
 
 # Khôi phục default nginx config
 cat > /etc/nginx/sites-available/default << 'EOF'
@@ -180,6 +200,20 @@ rm -f /var/log/flask-app*
 rm -f /var/log/gunicorn*
 rm -f /var/log/uwsgi*
 
+print_status "Tuỳ chọn: Dọn chứng chỉ Let's Encrypt"
+read -p "Bạn có muốn backup và xoá chứng chỉ Let's Encrypt không? (y/N): " -n 1 -r purge_le
+echo
+if [[ $purge_le =~ ^[Yy]$ ]]; then
+    LE_BK="/root/letsencrypt-backup-$(date +%Y%m%d)"
+    print_status "Backup /etc/letsencrypt → $LE_BK"
+    mkdir -p "$LE_BK"
+    cp -r /etc/letsencrypt/* "$LE_BK" 2>/dev/null || true
+    print_status "Xoá cấu hình và chứng chỉ Let's Encrypt"
+    rm -rf /etc/letsencrypt/live/* 2>/dev/null || true
+    rm -rf /etc/letsencrypt/renewal/* 2>/dev/null || true
+    rm -rf /etc/letsencrypt/archive/* 2>/dev/null || true
+fi
+
 print_header "5. DỌN DẸP USER VÀ CRON JOBS"
 
 print_status "Xóa cron jobs cũ..."
@@ -217,6 +251,13 @@ print_status "Xóa __pycache__ folders..."
 find /var -name "__pycache__" -type d -exec rm -rf {} \; 2>/dev/null || true
 find /opt -name "__pycache__" -type d -exec rm -rf {} \; 2>/dev/null || true
 find /srv -name "__pycache__" -type d -exec rm -rf {} \; 2>/dev/null || true
+
+print_status "Tuỳ chọn: gỡ cài đặt các dịch vụ Python web không dùng (gunicorn/uwsgi/supervisor)"
+read -p "Purge các package gunicorn, uwsgi, supervisor? (y/N): " -n 1 -r purge_pkgs
+echo
+if [[ $purge_pkgs =~ ^[Yy]$ ]]; then
+    apt purge -y gunicorn uwsgi uwsgi-core supervisor 2>/dev/null || true
+fi
 
 print_header "7. SYSTEM CLEANUP"
 
@@ -292,6 +333,10 @@ echo ""
 echo -e "${GREEN}🚀 VPS sẵn sàng cho deployment mới!${NC}"
 echo ""
 echo -e "${BLUE}Bước tiếp theo:${NC}"
-echo "1. Chạy script deploy: wget -qO- https://raw.githubusercontent.com/vuthevietgps/quanlyladipage/main/deploy.sh | sudo bash"
-echo "2. Hoặc clone repo và chạy thủ công"
+echo "1. Tải và chạy script redeploy từ GitHub (deploy từ repo mới quanlyladipage1):"
+echo "   wget -O /root/redeploy-vps.sh https://raw.githubusercontent.com/vuthevietgps/quanlyladipage/main/redeploy-vps.sh"
+echo "   sudo bash /root/redeploy-vps.sh"
+echo "2. Hoặc chạy không tương tác (ví dụ):"
+echo "   DOMAIN=example.com PRESERVE_LANDINGPAGES=true sudo -E bash /root/redeploy-vps.sh"
+echo "3. (Tuỳ chọn) Bạn vẫn có thể dùng deploy.sh cũ nếu muốn quy trình cũ."
 echo ""
