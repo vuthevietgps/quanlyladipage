@@ -12,7 +12,7 @@
 #   sudo bash redeploy-vps.sh
 #
 # Non-interactive (env overrides):
-#   DOMAIN=mydomain.com BRANCH=main REPO_URL=https://github.com/vuthevietgps/quanlyladipage1.git PRESERVE_LANDINGPAGES=true sudo -E bash redeploy-vps.sh
+#   DOMAIN=mydomain.com BRANCH=main REPO_URL=https://github.com/vuthevietgps/quanlyladipage.git PRESERVE_LANDINGPAGES=true sudo -E bash redeploy-vps.sh
 
 set -Eeuo pipefail
 
@@ -30,7 +30,7 @@ header()  { echo -e "${BLUE}\n==== $* ====${NC}"; }
 
 # ---------- Config (overridable via env) ----------
 APP_NAME="${APP_NAME:-quanlyladipage}"
-REPO_URL="${REPO_URL:-https://github.com/vuthevietgps/quanlyladipage1.git}"
+REPO_URL="${REPO_URL:-https://github.com/vuthevietgps/quanlyladipage.git}"
 BRANCH="${BRANCH:-main}"
 APP_DIR="${APP_DIR:-/var/www/$APP_NAME}"
 PUBLISHED_DIR="${PUBLISHED_DIR:-/var/www/landingpages}"
