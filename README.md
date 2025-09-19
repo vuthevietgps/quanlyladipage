@@ -35,12 +35,16 @@ Truy cập: http://localhost:5000
 ### Production Deployment
 ```bash
 # Trên VPS Ubuntu:
-git clone https://github.com/vuthevietgps/quanlyladipage.git
-cd quanlyladipage
-sudo bash deploy.sh
+wget https://raw.githubusercontent.com/vuthevietgps/quanlyladipage/main/cleanup-vps.sh
+chmod +x cleanup-vps.sh
+./cleanup-vps.sh
+
+wget https://raw.githubusercontent.com/vuthevietgps/quanlyladipage/main/redeploy-vps.sh
+chmod +x redeploy-vps.sh
+./redeploy-vps.sh
 ```
 
-Chi tiết: [README-production.md](README-production.md)
+Chi tiết: [HUONG-DAN-DEPLOY.md](HUONG-DAN-DEPLOY.md)
 
 ## 📋 API Endpoints
 
@@ -122,23 +126,17 @@ CREATE TABLE agents (
 ```
 
 ### Sample Templates:
-- [phu-hieu-xe-landing.html](phu-hieu-xe-landing.html) - Landing page bán phù hiệu xe
+- [published/vongtay-shopee/](published/vongtay-shopee/) - Landing page bán vòng tay (mẫu)
 
 ## 🖼️ Image Management
 
-```bash
-# Upload ảnh cho landing page
-bash images.sh upload my-landing ./local-images/
+Images được lưu trong thư mục `published/{subdomain}/` cùng với `index.html`. 
 
-# Liệt kê ảnh
-bash images.sh list my-landing
-
-# Tối ưu kích thước
-bash images.sh optimize my-landing
-
-# Backup ảnh
-bash images.sh backup my-landing
-```
+Hệ thống hỗ trợ:
+- ✅ Upload ảnh qua admin panel
+- ✅ Tự động backup ảnh khi cập nhật
+- ✅ Serve static files qua Nginx
+- ✅ Tối ưu performance với CDN
 
 ## 🚀 Production Architecture
 
@@ -168,10 +166,11 @@ VPS Ubuntu Server
 
 ## 📖 Documentation
 
-- [quytac.md](quytac.md) - Quy tắc deploy và phát triển chi tiết
-- [README-production.md](README-production.md) - Hướng dẫn deploy production
-- [deploy.sh](deploy.sh) - Script deploy tự động
-- [images.sh](images.sh) - Script quản lý ảnh
+- [quytac.md](quytac.md) - Quy tắc hệ thống và phát triển
+- [quytactaoindex.md](quytactaoindex.md) - Hướng dẫn tạo landing page
+- [HUONG-DAN-DEPLOY.md](HUONG-DAN-DEPLOY.md) - Hướng dẫn deploy production chi tiết
+- [cleanup-vps.sh](cleanup-vps.sh) - Script làm sạch VPS  
+- [redeploy-vps.sh](redeploy-vps.sh) - Script deploy tự động
 
 ## 🤝 Contributing
 
