@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vòng Tay Shopee Style - Ưu Đãi Hôm Nay</title>
+  <style>
+    :root {
+      --primary: #ee4d2d; /* Shopee orange */
+      --primary-dark: #d53d1f;
+      --text: #222;
+      --muted: #666;
+      --bg: #fafafa;
+      --card: #fff;
+      --badge: #ffd84d;
+    }
+    *{box-sizing: border-box}
+    body{margin:0; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:var(--text); background:var(--bg)}
+    a{text-decoration:none; color:inherit}
+    .topbar{background:var(--primary); color:#fff}
+    .container{max-width:1100px; margin:0 auto; padding:0 16px}
+    .flex{display:flex; align-items:center}
+    .between{justify-content:space-between}
+    .topbar .logo{font-weight:800; letter-spacing:.5px}
+    .topbar .contact a{color:#fff; opacity:.95; margin-left:14px}
+    .hero{background:linear-gradient(180deg, #fff, #fff7f5); padding:28px 0; border-bottom:1px solid #f2f2f2}
+    .hero h1{margin:0 0 6px; font-size:28px}
+    .hero p{margin:0; color:var(--muted)}
+    .badge{display:inline-block; background:var(--badge); color:#a15c00; padding:4px 10px; border-radius:12px; font-size:12px; margin-right:10px}
+    .cta{margin-top:14px}
+    .btn{display:inline-block; padding:10px 16px; border-radius:6px; font-weight:600}
+    .btn-primary{background:var(--primary); color:#fff}
+    .btn-primary:hover{background:var(--primary-dark)}
+    .btn-outline{border:1px solid var(--primary); color:var(--primary)}
+    .grid{display:grid; grid-template-columns:repeat(6,1fr); gap:14px}
+    @media (max-width: 1024px){.grid{grid-template-columns: repeat(4,1fr)}}
+    @media (max-width: 680px){.grid{grid-template-columns: repeat(2,1fr)}}
+    .card{background:var(--card); border-radius:8px; overflow:hidden; border:1px solid #eee; transition:box-shadow .2s ease}
+    .card:hover{box-shadow:0 8px 24px rgba(0,0,0,.06)}
+    .thumb{height:150px; background:#ffe9e3; display:flex; align-items:center; justify-content:center; color:#ff8f75; font-weight:700}
+    .info{padding:10px}
+    .title{font-size:14px; line-height:1.4; height:40px; overflow:hidden}
+    .price{margin-top:6px; font-size:16px; color:var(--primary); font-weight:800}
+    .strike{color:#aaa; font-size:12px; margin-left:6px; text-decoration: line-through}
+    .deal{font-size:12px; color:#0a7b31; margin-top:4px}
+    .footer{padding:20px 0; color:#777; font-size:13px}
+    .bar{position:sticky; bottom:0; background:#fff; border-top:1px solid #eee; padding:10px 0}
+    .bar .btn{margin-left:10px}
+    .floating{position:fixed; right:14px; bottom:80px; display:flex; flex-direction:column; gap:10px}
+    .float-btn{background:var(--primary); color:#fff; padding:10px 12px; border-radius:28px; box-shadow:0 6px 16px rgba(238,77,45,.4)}
+  </style>
+  <!-- TRACKING_HEAD -->
+</head>
+<body>
+  <div class="topbar">
+    <div class="container flex between" style="padding:10px 0">
+      <div class="logo">Vòng Tay Shop</div>
+      <div class="contact">
+        <a href="tel:0363614511">Hotline: 0363614511</a>
+        <a href="https://zalo.me/0363614511" rel="nofollow noopener" target="_blank">Zalo: 0363614511</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="container">
+      <span class="badge">Freeship đơn từ 99K</span>
+      <span class="badge">Đổi trả 7 ngày</span>
+      <h1>Bộ sưu tập Vòng Tay Handmade - Ưu đãi đến 50%</h1>
+      <p>Chất liệu đẹp, bền, hợp phong thủy. Nhiều mẫu mới theo trend Shopee.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://zalo.me/0363614511" target="_blank">Chat Zalo tư vấn</a>
+        <a class="btn btn-outline" href="tel:0363614511">Gọi đặt hàng: 0363614511</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding:18px 0 26px">
+    <div class="grid">
+      
+      <div class="card">
+        <div class="thumb">Vòng đá núi lửa</div>
+        <div class="info">
+          <div class="title">Vòng tay đá núi lửa Lava Stone - Hạt 8mm</div>
+          <div class="price">79.000đ <span class="strike">149.000đ</span></div>
+          <div class="deal">Đã bán 1,2k | 4.9★</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="thumb">Vòng trầm hương</div>
+        <div class="info">
+          <div class="title">Vòng trầm hương mix charm bạc 925</div>
+          <div class="price">199.000đ <span class="strike">359.000đ</span></div>
+          <div class="deal">Đã bán 530 | 4.8★</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">Vòng mã não</div>
+        <div class="info">
+          <div class="title">Vòng mã não đỏ - Năng lượng, may mắn</div>
+          <div class="price">89.000đ <span class="strike">179.000đ</span></div>
+          <div class="deal">Đã bán 2k | 4.9★</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">Vòng mắt hổ</div>
+        <div class="info">
+          <div class="title">Vòng mắt hổ vàng - Thu hút tài lộc</div>
+          <div class="price">129.000đ <span class="strike">249.000đ</span></div>
+          <div class="deal">Đã bán 980 | 4.9★</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">Vòng thạch anh</div>
+        <div class="info">
+          <div class="title">Vòng thạch anh tím - Bình an, tĩnh tâm</div>
+          <div class="price">149.000đ <span class="strike">299.000đ</span></div>
+          <div class="deal">Đã bán 1,1k | 4.9★</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb">Vòng cẩm thạch</div>
+        <div class="info">
+          <div class="title">Vòng cẩm thạch thiên nhiên - Sang trọng</div>
+          <div class="price">259.000đ <span class="strike">399.000đ</span></div>
+          <div class="deal">Đã bán 230 | 4.7★</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bar">
+    <div class="container flex between">
+      <div>Hỗ trợ nhanh: <strong>0363614511</strong></div>
+      <div>
+        <a class="btn btn-outline" href="https://zalo.me/0363614511" target="_blank">Chat Zalo</a>
+        <a class="btn btn-primary" href="tel:0363614511">Gọi: 0363614511</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating">
+    <a class="float-btn" href="https://zalo.me/0363614511" target="_blank">Zalo</a>
+    <a class="float-btn" href="tel:0363614511">Gọi</a>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      © 2025 Vòng Tay Shop • Cam kết chính hãng • Bảo hành 12 tháng
+    </div>
+  </div>
+
+  <!-- TRACKING_BODY -->
+</body>
+</html>
